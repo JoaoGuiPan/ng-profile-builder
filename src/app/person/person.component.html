@@ -1,0 +1,59 @@
+<section class="example-section">
+
+  <div class="col-xs-12" [ngStyle]="{'color': favoriteColor}">
+    <h2>Welcome {{name}}!</h2>
+  </div>
+
+  <div class="col-xs-12" *ngIf="!showJobTitle">
+    <mat-form-field class="example-full-width">
+      <mat-label>Favorite Color</mat-label>
+      <mat-select [(value)]="favoriteColor">
+        <mat-option value="red">red</mat-option>
+        <mat-option value="orange">orange</mat-option>
+        <mat-option value="yellow">yellow</mat-option>
+        <mat-option value="green">green</mat-option>
+        <mat-option value="blue">blue</mat-option>
+        <mat-option value="indigo">indigo</mat-option>
+        <mat-option value="violet">violet</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="showJobTitle = true">Submit</button>
+  </div>
+
+  <div class="col-xs-12" *ngIf="showJobTitle">
+    <mat-form-field class="example-full-width">
+      <mat-label>Job Title</mat-label>
+      <input matInput placeholder="What's your Job Title?" [disabled]="showJobExperiences">
+    </mat-form-field>
+    <button mat-raised-button color="primary" *ngIf="!showJobExperiences" (click)="showJobExperiences = true">Submit</button>
+  </div>
+
+  <div *ngIf="showJobExperiences">
+
+    <div class="col-xs-12">
+      <h2>Job Experiences</h2>
+    </div>
+
+    <section class="example-section job-experiences">
+      <div *ngFor="let jobExperience of jobExperiences; index as i">
+        <mat-form-field class="example-full-width">
+          <textarea matInput [value]="jobExperience" disabled></textarea>
+        </mat-form-field>
+      </div>
+  
+      <div *ngIf="addJobExperienceRow else addJobExperienceBtn">
+        <mat-form-field class="example-full-width">
+          <textarea matInput [(ngModel)]="newJobExperience"></textarea>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="saveJobExperience()">Submit</button>
+      </div>
+    </section>
+
+    <ng-template #addJobExperienceBtn>
+      <div>
+        <button mat-raised-button color="primary" *ngIf="!addJobExperienceRow" (click)="addJobExperienceRow = true">Add Job Experience</button>
+      </div>
+    </ng-template>
+
+  </div>
+</section>
